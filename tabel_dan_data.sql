@@ -1,4 +1,4 @@
-ata contoh
+data contoh
 INSERT INTO user (nama, nomor_induk, kategori_pengguna) VALUES
  ('Adam','264311060','Mahasiswa'),('Iltizam','264311071','Mahasiswa');
 
