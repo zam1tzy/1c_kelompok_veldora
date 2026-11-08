@@ -308,4 +308,4 @@ SELECT COUNT(*) FROM penanganan;
 ---PERBANDINGAN DENGAN DATABASE ASLI---
 USE campus_facility_report;
 SELECT COUNT(*) FROM laporan;
-SELECT COUNT(*) FROM penanganan;
+SELECT COUNT(*) FROM penanganan:
