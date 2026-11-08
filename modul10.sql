@@ -307,4 +307,3 @@ SELECT COUNT(*) AS total_penanganan FROM penanganan;
 
 ---PERBANDINGAN DENGAN DATABASE ASLI---
 
-
