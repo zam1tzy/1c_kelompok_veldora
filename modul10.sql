@@ -81,85 +81,85 @@
 
 
 ---MENGISI DATA AWAL---
-INSERT INTO user (nama, nomor_induk, kategori_pengguna, email, password) VALUES
-  ('Adam',    '264311060', 'Mahasiswa', 'adam@email.com',    'adam123*123'),
-  ('Iltizam', '264311071', 'Mahasiswa', 'iltizam@yahoo.com', 'ijul098*761');
 
-INSERT INTO petugas (nama, jabatan, email, password) VALUES
-  ('Pak Udin',  'Teknisi',             'udin22@email.com',   'udin123321'),
-  ('Pak Setiawan', 'Pengelola Fasilitas', 'set1awan@email.com', 'setiawan91872');
 
-INSERT INTO fasilitas (nama_fasilitas, jenis_fasilitas, lokasi) VALUES
-  ('Toilet Gedung A', 'Toilet',                'Gedung A Lt.1'),
-  ('WiFi Gedung B',   'Jaringan Internet',     'Gedung B'),
-  ('Lab Komputer 1',  'Laboratorium Komputer', 'Gedung C');
 
-INSERT INTO kategori_kerusakan (nama_kategori, deskripsi) VALUES
-  ('Ringan', 'Gangguan kecil, fasilitas masih bisa dipakai'),
-  ('Sedang', 'Fungsi fasilitas terganggu sebagian'),
-  ('Berat',  'Fasilitas tidak dapat digunakan');
 
-INSERT INTO laporan
-  (id_user, id_fasilitas, id_kategori, lokasi_detail, deskripsi, tanggal_lapor, status) VALUES
-  (1, 1, 3, 'Bilik 2',  'Kran patah',       '2026-10-01', 'Menunggu'),
-  (2, 1, 1, 'Bilik 1',  'Lampu redup',      '2026-10-02', 'Diproses'),
-  (1, 2, 2, 'Lantai 2', 'WiFi putus-putus', '2026-10-03', 'Selesai'),
-  (2, 1, 3, 'Bilik 3',  'Pintu rusak',      '2026-10-04', 'Menunggu'),
-  (1, 3, 2, 'Meja 5',   'Monitor mati',     '2026-10-05', 'Diproses');
 
-INSERT INTO penanganan
-  (id_laporan, id_petugas, tanggal_penugasan, tanggal_selesai, catatan) VALUES
-  (2, 1, '2026-10-03', NULL,         'Ganti lampu'),
-  (3, 1, '2026-10-04', '2026-10-06', 'Router direset'),
-  (5, 1, '2026-10-06', NULL,         'Cek unit monitor');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---===Praktik Operasi Database CRUD===---
 
 ---CREATE – Menambahkan Data---
-INSERT INTO user (nama, nomor_induk, kategori_pengguna, email, password)
-VALUES ('Andi', '264311099', 'Mahasiswa', 'andi@example.test', 'hash_dummy');
 
-SELECT * FROM user;
+
+
+
 
 ---READ – Membaca Data---
-SELECT l.id_laporan, u.nama AS pelapor, f.nama_fasilitas,
-       k.nama_kategori, l.deskripsi, l.tanggal_lapor, l.status
-FROM laporan l
-JOIN user u               ON u.id_user = l.id_user
-JOIN fasilitas f          ON f.id_fasilitas = l.id_fasilitas
-JOIN kategori_kerusakan k ON k.id_kategori = l.id_kategori
-ORDER BY l.tanggal_lapor;
-SELECT * FROM laporan WHERE status = 'Menunggu';
+
+
+
+
+
+
+
+
 
 ---UPDATE – Memperbarui Data---
-UPDATE laporan SET status = 'Diproses' WHERE id_laporan = 1;
-SELECT * FROM laporan WHERE id_laporan = 1;
+
+
 
 ---DELETE – Menghapus Data---
-DELETE FROM user WHERE email = 'andi@example.test';
-SELECT * FROM user;
+
+
 
 ---MENGUJI INTEGRITAS REFERENSIAL---
-INSERT INTO laporan
-  (id_user, id_fasilitas, id_kategori, deskripsi, tanggal_lapor)
-VALUES (9999999, 1, 1, 'Uji FK user tidak ada', '2026-10-07');
----DAN JUGA---
-DELETE FROM user WHERE id_user = 1;
+
+
+
+
+
 
 ---===PENGUJIAN TRANSAKSI DATABASE===---
 
 ---PENGUJIAN COMMIT---
-START TRANSACTION;
-INSERT INTO laporan
-  (id_user, id_fasilitas, id_kategori, lokasi_detail, deskripsi, tanggal_lapor, status)
-VALUES (2, 3, 3, 'Meja 2', 'Keyboard tidak berfungsi', '2026-10-06', 'Diproses');
-SET @id_baru = LAST_INSERT_ID();
-INSERT INTO penanganan (id_laporan, id_petugas, tanggal_penugasan, catatan)
-VALUES (@id_baru, 1, '2026-10-06', 'Dijadwalkan pengecekan');
-COMMIT;
+
+
+
+
+
+
+
+
 ---PERIKSA HASIL---
-SELECT * FROM laporan    WHERE id_laporan = @id_baru;
-SELECT * FROM penanganan WHERE id_laporan = @id_baru;
+
+
 
 ---PENGUJIAN ROLLBACK---
 
