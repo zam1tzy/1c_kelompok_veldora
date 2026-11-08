@@ -53,7 +53,7 @@ CREATE TABLE laporan (
   CONSTRAINT fk_laporan_kategori
     FOREIGN KEY (id_kategori) REFERENCES kategori_kerusakan(id_kategori)
     ON UPDATE CASCADE ON DELETE RESTRICT
-); 
+);
 
 ---MEMBUAT TABEL PENANGANAN BESERTA RELASI ANTAR TABEL---
 CREATE TABLE penanganan (
@@ -73,7 +73,7 @@ CREATE TABLE penanganan (
   CONSTRAINT chk_tanggal_penanganan
     CHECK (tanggal_selesai IS NULL OR tanggal_selesai >= tanggal_penugasan)
 );
- 
+
 ---MEMERIKSA RELASI TABEL/STRUKTUR TABEL---
 SHOW TABLES;
 SHOW CREATE TABLE user;
