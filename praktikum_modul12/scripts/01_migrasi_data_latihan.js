@@ -1,33 +1,33 @@
-// 1. Migrasi data ke collection
+// Script migrasi database transport_db pada ArangoDB (arangosh)
+db._useDatabase("_system");
 
-routes FOR r IN [
+if (!db._databases().includes("transport_db")) {
+  db._createDatabase("transport_db");
+}
+db._useDatabase("transport_db");
 
-{_key: "12", route_id: 12, route_name; "Koridor Pusat-Terminal" },
+if (!db._collection("routes")) {
+  db._create("routes");
+}
+if (!db._collection("trips")) {
+  db._create("trips");
+}
 
-{_key: "15", route_id: 15, route_name; "Koridor Kampus-Stasiun" },
+// Insert data collection routes
+db.routes.save([
+  { _key: "R12", route_id: 12, route_name: "Koridor Pusat-Terminal" },
+  { _key: "R15", route_id: 15, route_name: "Koridor Kampus-Stasiun" },
+  { _key: "R18", route_id: 18, route_name: "Koridor Pasar-Kota" }
+], { overwriteMode: "replace" });
 
-{_key: "18", route_id: 18, route_name; "Koridor Pasar-Kota" }
-]
-INSERT r INTO routes
+// Insert data collection trips
+db.trips.save([
+  { _key: "T001", trip_id: "T001", route_id: 12, started_at: "2026-11-02 07:10", duration_min: 35 },
+  { _key: "T002", trip_id: "T002", route_id: 15, started_at: "2026-11-02 07:45", duration_min: 28 },
+  { _key: "T003", trip_id: "T003", route_id: 12, started_at: "2026-11-03 08:05", duration_min: 40 },
+  { _key: "T004", trip_id: "T004", route_id: 18, started_at: "2026-10-30 16:30", duration_min: 25 },
+  { _key: "T005", trip_id: "T005", route_id: 12, started_at: "2026-11-05 17:20", duration_min: 42 },
+  { _key: "T006", trip_id: "T006", route_id: 15, started_at: "2026-11-06 09:15", duration_min: 30 }
+], { overwriteMode: "replace" });
 
-// 2. Migrasi data ke collection
-trips FOR t IN [
-
-{_key: "T001", trip_id: "T001", route_id: 12, started_at: "2026-11-02 07:10", status: "completed" },
-
-{_key: "T002", trip_id: "T002", route_id: 15, started_at: "2026-11-02 07:25", status: "completed" },
-
-{_key: "T003", trip_id: "T003", route_id: 12, started_at: "2026-11-03 08:05", status: "delayed" },
-
-{_key: "T004", trip_id: "T004", route_id: 18, started_at: "2026-10-29 06:50", status: "completed" },
-
-{_key: "T005", trip_id: "T005", route_id: 12, started_at: "2026-11-05 17:20", status: "completed" },
-
-{_key: "T006", trip_id: "T006", route_id: 15, started_at: "2026-11-06 09:15", status: "cancelled" }
-]
-
-INSERT t INTO trips
-// 3. Query pengujian kasus transportasi FOR t IN trips
-FILTER t.route_id == 12 AND t.started_at >= "2026-11-01" FOR r IN routes
-FILTER r.route_id == t.route_id RETURN {
-trip_id: t.trip_id, started_at: t.started_at, route_name: 
+print("Migrasi data transport_db selesai.");
