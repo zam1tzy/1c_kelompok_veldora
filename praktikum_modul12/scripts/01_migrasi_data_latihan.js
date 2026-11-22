@@ -24,3 +24,10 @@ trips FOR t IN [
 {_key: "T005", trip_id: "T005", route_id: 12, started_at: "2026-11-05 17:20", status: "completed" },
 
 {_key: "T006", trip_id: "T006", route_id: 15, started_at: "2026-11-06 09:15", status: "cancelled" }
+]
+
+INSERT t INTO trips
+// 3. Query pengujian kasus transportasi FOR t IN trips
+FILTER t.route_id == 12 AND t.started_at >= "2026-11-01" FOR r IN routes
+FILTER r.route_id == t.route_id RETURN {
+trip_id: t.trip_id, started_at: t.started_at, route_name: 
